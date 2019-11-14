@@ -1,0 +1,11 @@
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單2015.Properties.Resources.resources
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單2015.AbsenceNotificationConfigForm.resources
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單2015.AbsenceNotificationSelectDateRangeForm.resources
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單2015.SelectDateRangeForm.resources
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單2015.SelectTypeForm.resources
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單.csproj.GenerateResource.cache
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單.csproj.CoreCompileInputs.cache
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.缺曠通知單.csproj.CopyComplete
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\DevComponents.DotNetBar2.dll
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.AttendanceAnAdviceNote_hwhs_epost.dll
+C:\Users\ED\Documents\ischool_Github\epost_hwhs_h\缺曠通知單-epost\obj\Debug\K12.AttendanceAnAdviceNote_hwhs_epost.pdb
