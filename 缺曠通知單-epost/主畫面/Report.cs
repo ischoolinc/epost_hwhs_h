@@ -11,6 +11,7 @@ using FISCA.DSAUtil;
 using K12.Data;
 using K12.Data.Configuration;
 using SmartSchool.ePaper;
+using FISCA.Data;
 
 namespace K12.缺曠通知單2015
 {
@@ -22,7 +23,9 @@ namespace K12.缺曠通知單2015
 
         private Dictionary<string, List<string>> config;
 
-        string addconfigName = "缺曠通知單_ForK12_缺曠別設定.2013";
+        private static QueryHelper queryHelper;
+
+        string addconfigName = "缺曠通知單_ForK12_缺曠別設定.2013_弘文epost";
 
         List<string> configkeylist { get; set; }
         ConfigOBJ obj;
@@ -50,7 +53,7 @@ namespace K12.缺曠通知單2015
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
+                queryHelper = new QueryHelper();
                 #region 讀取缺曠別 Preference
                 config = new Dictionary<string, List<string>>();
                 configkeylist = new List<string>();
@@ -235,7 +238,25 @@ namespace K12.缺曠通知單2015
                 StudentSuperOBJ[studentID].ClassName = aStudent.Class != null ? aStudent.Class.Name : "";
                 StudentSuperOBJ[studentID].SeatNo = aStudent.SeatNo.HasValue ? aStudent.SeatNo.Value.ToString() : "";
                 StudentSuperOBJ[studentID].StudentNumber = aStudent.StudentNumber;
+                StudentSuperOBJ[studentID].ParentCode = "";
             }
+            #endregion
+
+            #region 取得家長代碼
+            // 因應 2019/11/14 弘文要求新epost  增加家長代碼抓取
+            string ids = string.Join(",", allStudentID);
+
+            string sql = "select student.id, student.parent_code, student.student_code, student.seat_no, student.name, class.grade_year, class.class_name from student";
+            sql += " join class on class.id = student.ref_class_id where student.status in (1,2) and student.id in (" + ids + ") order by class.grade_year,class.display_order,class.class_name,student.seat_no";
+            DataTable dt_parent_code = queryHelper.Select(sql); ;
+            
+            foreach (DataRow row in dt_parent_code.Rows)
+            {
+                if (StudentSuperOBJ.ContainsKey("" + row["id"]))
+                {
+                    StudentSuperOBJ["" + row["id"]].ParentCode = "" + row["parent_code"];
+                }
+            } 
             #endregion
 
 
@@ -593,6 +614,9 @@ namespace K12.缺曠通知單2015
                 mapping.Add("導師", eachStudentInfo.TeacherName);
                 mapping.Add("資料期間", obj.StartDate.ToShortDateString() + " 至 " + obj.EndDate.ToShortDateString());
 
+                // 2019/11/12 穎驊註解 本專案為弘文於本學期提出來的需求，增加家長代碼
+                mapping.Add("家長代碼", eachStudentInfo.ParentCode);
+
                 //收件人資料
                 if (obj.ReceiveName == "監護人姓名")
                     mapping.Add("收件人姓名", eachStudentInfo.CustodianName);
@@ -709,7 +733,7 @@ namespace K12.缺曠通知單2015
 
                 eachSection.MailMerge.Execute(Allkeys, Allvalues);
                 eachSection.MailMerge.DeleteFields();
-                
+
                 #region epost 使用
 
                 // 將對應功能變數 套入dt
@@ -741,7 +765,7 @@ namespace K12.缺曠通知單2015
                     row[key] = Allmapping[key];
                 }
 
-                dt.Rows.Add(row); 
+                dt.Rows.Add(row);
                 #endregion
 
 
@@ -801,6 +825,7 @@ namespace K12.缺曠通知單2015
                 wb.Worksheets[0].Cells[CountRow, 3].PutValue("學生姓名");
                 wb.Worksheets[0].Cells[CountRow, 4].PutValue("收件人姓名");
                 wb.Worksheets[0].Cells[CountRow, 5].PutValue("地址");
+                wb.Worksheets[0].Cells[CountRow, 6].PutValue("家長代碼");
                 CountRow++;
                 foreach (string each in StudentSuperOBJ.Keys)
                 {
@@ -832,6 +857,7 @@ namespace K12.缺曠通知單2015
                         wb.Worksheets[0].Cells[CountRow, 4].PutValue(StudentSuperOBJ[each].student.Name);
 
                     wb.Worksheets[0].Cells[CountRow, 5].PutValue(StudentSuperOBJ[each].ZipCode + " " + StudentSuperOBJ[each].address);
+                    wb.Worksheets[0].Cells[CountRow, 6].PutValue(StudentSuperOBJ[each].ParentCode);
                     CountRow++;
                 }
                 wb.Worksheets[0].AutoFitColumns();

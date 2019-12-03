@@ -40,7 +40,7 @@ namespace K12.缺曠通知單2015
         public Dictionary<string, Dictionary<string, string>> studentAbsenceDetail = new Dictionary<string, Dictionary<string, string>>();
 
         public string TeacherName { get; set; }
-        public string ClassName{get;set;}
+        public string ClassName { get; set; }
         public string SeatNo { get; set; }
         public string StudentNumber { get; set; }
 
@@ -65,5 +65,8 @@ namespace K12.缺曠通知單2015
         public string FatherName { get; set; }
         //母親
         public string MotherName { get; set; }
+
+        //收件人地址
+        public string ParentCode { get; set; }
     }
 }

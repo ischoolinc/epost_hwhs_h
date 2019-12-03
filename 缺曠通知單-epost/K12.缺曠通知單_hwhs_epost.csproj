@@ -60,6 +60,10 @@
       <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\FISCA.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FISCA.Data">
+      <HintPath>Library\FISCA.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="FISCA.DSAUtil">
       <HintPath>..\..\..\ischool_Senior with FISCA\LibraryProject\FISCA.DSAUtil.dll</HintPath>
       <Private>False</Private>
